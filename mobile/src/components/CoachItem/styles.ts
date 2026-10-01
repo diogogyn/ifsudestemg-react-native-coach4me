@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
 
   profileInfo: {
     marginLeft: 16,
+    flex: 1,
   },
 
   name: {
@@ -46,6 +47,24 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 24,
     color: '#6a6180',
+  },
+
+  scheduleContainer: {
+    marginHorizontal: 24,
+    marginTop: 16,
+  },
+
+  scheduleTitle: {
+    fontFamily: 'Archivo_700Bold',
+    fontSize: 14,
+    color: '#32264d',
+  },
+
+  scheduleText: {
+    fontFamily: 'Poppins_400Regular',
+    fontSize: 14,
+    color: '#6a6180',
+    marginTop: 4,
   },
 
   footer: {
@@ -70,6 +89,7 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     flexDirection: 'row',
     marginTop: 16,
+    width: '100%',
   },
 
   favoriteButton: {
@@ -104,6 +124,15 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
 
+  favoriteIcon: {
+    width: 24,
+    height: 25,
+  },
+
+  contactIcon: {
+    width: 20,
+    height: 21,
+  },
 
 });
 
