@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, TextInput } from 'react-native';
-import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
+import { ScrollView, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -17,6 +16,8 @@ function CoachList() {
   const [coaches, setCoaches] = useState([]);
   const [favorites, setFavorites] = useState<number[]>([]);
   const [isFiltersVisible, setIsFiltersVisible] = useState(false);
+
+  const [hasSearched, setHasSearched] = useState(false);
 
   const [subject, setSubject] = useState('');
   const [week_day, setWeekDay] = useState('');
@@ -35,9 +36,11 @@ function CoachList() {
     });
   }
 
-  useFocusEffect(() => {
-    loadFavorites();
-  });
+  useFocusEffect(
+    React.useCallback(() => {
+      loadFavorites();
+    }, [])
+  );
 
   function handleToggleFiltersVisible() {
     setIsFiltersVisible(!isFiltersVisible);
@@ -56,6 +59,7 @@ function CoachList() {
 
     setIsFiltersVisible(false);
     setCoaches(response.data);
+    setHasSearched(true);
   }
 
   return (
@@ -63,9 +67,9 @@ function CoachList() {
       <PageHeader 
         title="Coaches disponíveis" 
         headerRight={(
-          <BorderlessButton onPress={handleToggleFiltersVisible}>
+          <TouchableOpacity onPress={handleToggleFiltersVisible}>
             <Feather name="filter" size={20} color="#fff" />
-          </BorderlessButton>
+          </TouchableOpacity>
         )}
       >
         { isFiltersVisible && (
@@ -103,9 +107,9 @@ function CoachList() {
               </View>
             </View>
 
-            <RectButton onPress={handleFiltersSubmit} style={styles.submitButton}>
+            <TouchableOpacity onPress={handleFiltersSubmit} style={styles.submitButton}>
               <Text style={styles.submitButtonText}>Filtrar</Text>
-            </RectButton>
+            </TouchableOpacity>
           </View>
         )}
       </PageHeader>
@@ -117,6 +121,11 @@ function CoachList() {
           paddingBottom: 16,
         }}
       >
+        {hasSearched && coaches.length === 0 && (
+          <Text style={styles.emptyMessage}>
+            Nenhum coach encontrado para os filtros informados.
+          </Text>
+        )}
         {coaches.map((coach: Coach) => {
           return (
             <CoachItem 
