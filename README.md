@@ -65,4 +65,6 @@ Confira o IP do server no arquivo de configuração do axios. Em seguida reinici
 
 Experimente desabilitar o ESLint.
 
+npx --yes --package=expo-cli@4.13.0 expo start -c
+
 
